@@ -1,37 +1,43 @@
+import java.util.ArrayList;
+
 public class SocialNetwork {
-
     private String appName;
-    private String description;
-    private String founder;
-    private String version;
+    public ArrayList<Profile> profiles = new ArrayList<>();
+    public ArrayList<Post> posts = new ArrayList<>();
 
-    public SocialNetwork(String appName, String description, String founder, String version) {
+    public SocialNetwork(String appName) {
         this.appName = appName;
-        this.description = description;
-        this.founder = founder;
-        this.version = version;
     }
 
-    public String getAppName() {
-        return appName;
+    public void addProfile(Profile p) {
+        profiles.add(p);
     }
 
-    public String getDescription() {
-        return description;
+    public void addPost(Post p) {
+        posts.add(p);
     }
 
-    public String getFounder() {
-        return founder;
+    public Profile findUser(String name) {
+        for (Profile p : profiles) {
+            if (p.getLogin().equals(name)) {
+                return p;
+            }
+        }
+        return null;
     }
 
-    public String getVersion() {
-        return version;
+    public ArrayList<Post> getPopularPosts(int minLikes) {
+        ArrayList<Post> result = new ArrayList<>();
+        for (Post p : posts) {
+            if (p.getLikes() >= minLikes) {
+                result.add(p);
+            }
+        }
+        return result;
     }
 
-    public void showInfo() {
-        System.out.println("App name: " + appName);
-        System.out.println("Description: " + description);
-        System.out.println("Founder: " + founder);
-        System.out.println("Version: " + version);
+    @Override
+    public String toString() {
+        return "App: " + appName + " (Users: " + profiles.size() + ")";
     }
 }

@@ -1,31 +1,29 @@
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
+        SocialNetwork net = new SocialNetwork("MyNet");
 
-        Profile user1 = new Profile("Darkhan", "pass123");
-        Profile user2 = new Profile("Aikyn", "qwerty");
+        Profile p1 = new Profile("Darkhan", "123");
+        Profile p2 = new Profile("Aikyn", "qwe");
 
-        System.out.println("Users:");
-        user1.showProfileInfo();
-        user2.showProfileInfo();
-        System.out.println("---------------------");
+        p2.addSubscriber();
+        p2.addSubscriber();
 
-        user1.followSomeone();
-        user2.addSubscriber();
-        user1.showProfileInfo();
-        user2.showProfileInfo();
-        System.out.println("---------------------");
+        net.addProfile(p1);
+        net.addProfile(p2);
 
-        Post post1 = new Post("Darkhan", "Everybody come on");
-        Post post2 = new Post("Aikyn", "Just my universe");
-
+        Post post1 = new Post(p1, "Hello!");
         post1.putLike();
-        post1.putLike();
-        post2.putLike();
-        post2.putDislike();
+        net.addPost(post1);
 
-        System.out.println("Posts:");
-        post1.readThePost();
-        System.out.println("---------------------");
-        post2.readThePost();
+        System.out.println(net.findUser("Darkhan"));
+
+        ArrayList<Post> popular = net.getPopularPosts(1);
+        for (Post p : popular) {
+            System.out.println(p);
+        }
+
+        System.out.println("Check equals: " + p1.equals(new Profile("Darkhan", "000")));
     }
 }

@@ -1,36 +1,39 @@
-public class Post {
+import java.util.Objects;
 
-    private String user;
+public class Post {
+    private Profile author;
     private String text;
     private int likes;
 
-    public Post(String user, String text) {
-        this.user = user;
+    public Post(Profile author, String text) {
+        this.author = author;
         this.text = text;
         this.likes = 0;
-    }
-
-    public void readThePost() {
-        System.out.println("User: " + user);
-        System.out.println("Post: " + text);
-        System.out.println("Likes: " + likes);
-    }
-
-    public String getPostText() {
-        return text;
-    }
-
-    public int getLikeCount() {
-        return likes;
     }
 
     public void putLike() {
         likes++;
     }
 
-    public void putDislike() {
-        if (likes > 0) {
-            likes--;
-        }
+    public int getLikes() {
+        return likes;
+    }
+
+    @Override
+    public String toString() {
+        return author.getLogin() + ": " + text + " (" + likes + " likes)";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return text.equals(post.text) && author.equals(post.author);
+    }
+
+    @Override
+    public int hashCode() {
+        return text.hashCode() + author.hashCode();
     }
 }

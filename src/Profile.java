@@ -1,48 +1,38 @@
-public class Profile {
+import java.util.Objects;
 
-    private String login;
+public class Profile extends User {
     private String password;
-    private int subscriptions;
     private int subscribers;
 
     public Profile(String login, String password) {
-        this.login = login;
+        super(login);
         this.password = password;
-        this.subscriptions = 0;
         this.subscribers = 0;
-    }
-
-    public void showProfileInfo() {
-        System.out.println("Username: " + login);
-        System.out.println("Subscriptions: " + subscriptions);
-        System.out.println("Subscribers: " + subscribers);
-    }
-
-    public int getSubscriptionsCount() {
-        return subscriptions;
-    }
-
-    public int getSubscribersCount() {
-        return subscribers;
-    }
-
-    public void followSomeone() {
-        subscriptions++;
-    }
-
-    public void unfollowSomeone() {
-        if (subscriptions > 0) {
-            subscriptions--;
-        }
     }
 
     public void addSubscriber() {
         subscribers++;
     }
 
-    public void removeSubscriber() {
-        if (subscribers > 0) {
-            subscribers--;
-        }
+    public int getSubscribersCount() {
+        return subscribers;
+    }
+
+    @Override
+    public String toString() {
+        return "User: " + login + " | Subs: " + subscribers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Profile profile = (Profile) o;
+        return login.equals(profile.login);
+    }
+
+    @Override
+    public int hashCode() {
+        return login.hashCode();
     }
 }
